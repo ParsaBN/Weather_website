@@ -9,16 +9,21 @@ const forecast = (latitude, longitude, callback) => {
         } else if (body.error) {
             callback('Unable to find location', undefined)
         } else {
-            callback(undefined, body.daily.data[0].summary + ' throughout the day. It is currently ' + body.currently.temperature + ' degrees out. There is a ' + body.currently.precipProbability + '% chance of rain.')
+            callback(undefined, {
+                summary: body.daily.data[0].summary,
+                currentTemperature: body.currently.temperature,
+                precipProbability: body.currently.precipProbability,
+                temperatureLow: body.daily.data[0].temperatureMin,
+                temperatureHigh: body.daily.data[0].temperatureMax
+            })
         }
     })
 }
 
 module.exports = forecast
 
+// Example url for json data of new york from darksky
+// https://api.darksky.net/forecast/9ee7352520b53896acd144a7068b94d1/40.7128,-74.0060?units=si
 
-// {
-//     temp: response.body.currently.temperature,
-//     precip: response.body.currently.precipProbability,
-//     summary: response.body.daily.data[0].summary
-// }
+// summary forecast
+// body.daily.data[0].summary + ' throughout the day. It is currently ' + body.currently.temperature + ' degrees out. There is a ' + body.currently.precipProbability + '% chance of rain.'

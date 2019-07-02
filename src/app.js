@@ -59,7 +59,11 @@ app.get('/weather', (req, res) => {
             res.send({
                 address: req.query.address,
                 location,
-                forecast: forecastData
+                forecastSummary: forecastData.summary,
+                currentTemperature: forecastData.currentTemperature,
+                precipProbability: forecastData.precipProbability,
+                temperatureLow: forecastData.temperatureLow,
+                temperatureHigh: forecastData.temperatureHigh
             })
         })
     })
